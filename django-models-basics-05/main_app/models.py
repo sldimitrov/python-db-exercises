@@ -10,6 +10,9 @@ class Blog(models.Model):
     post = models.TextField()
     author = models.CharField(max_length=35)
 
+    def __str__(self):
+        return self.post
+
 
 class WeatherForecast(models.Model):
     date = models.DateField()
