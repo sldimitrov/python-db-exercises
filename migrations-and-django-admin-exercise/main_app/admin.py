@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EventRegistration, Movie, Student, Supplier, Course
+from .models import EventRegistration, Movie, Smartphone, Student, Supplier, Course
 
 # Register your models here.
 @admin.register(EventRegistration)
@@ -72,3 +72,9 @@ class CourseAdmin(admin.ModelAdmin):
             )
         }),
     )
+
+
+@admin.register(Smartphone)
+class SmartphoneAdmin(admin.ModelAdmin):
+    list_display = ('brand', 'price', 'category')
+
