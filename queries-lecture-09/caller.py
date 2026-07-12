@@ -84,8 +84,19 @@ def order_books_by_year():
     return '\n'.join(results)
 
 
+def get_all_review_ids():
+    reviews = Review.objects.all()
+
+    reviews_ids = []
+
+    for review in reviews:
+        reviews_ids.append(review.id)
+
+    return reviews_ids
+
+
 def delete_review_by_id(id):
-    review = Review.objects.filter(id=id)
+    review = Review.objects.get(id=id)
 
     review.delete()
 
@@ -120,14 +131,14 @@ def filter_authors_by_birth_year(start_year, end_year):
 
 
 def change_reviewer_name(reviewer_name, new_name):
-    reviews = Review.objects.filter(reviewer_name=reviewer_name)
-
-    for review in reviews:
-        review.reviewer_name = new_name
-        review.save()
+    reviews = Review.objects.filter(reviewer_name=reviewer_name).update(reviewer_name=new_name)
 
     return reviews
 
 # books = find_books_by_genre_and_language(genre='Poetry', language='Spanish')
 # print(find_authors_nationalities())
 # print(order_books_by_year())
+
+# print(get_all_review_ids())
+# print(delete_review_by_id(2))
+# print(get_all_review_ids())
