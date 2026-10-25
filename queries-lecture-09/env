@@ -1,7 +1,0 @@
-// PostgreSQL DB
-user=postgres
-password=admin123
-
-// Django Admin
-admin=admin
-password=password
