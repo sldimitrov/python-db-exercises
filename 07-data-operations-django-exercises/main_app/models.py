@@ -51,3 +51,21 @@ class HotelRoom(models.Model):
     amenities = models.TextField()
     price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
     is_reserved = models.BooleanField(default=False)
+
+
+class Character(models.Model):
+    CLASS_NAMES = {
+        "MAGE": "Mage",
+        "WARRIOR": "Warrior",
+        "ASSASSIN": "Assassin",
+        "SCOUT": "Scout"
+    }
+
+    name = models.CharField(max_length=100)
+    class_name = models.CharField(max_length=20, choices=CLASS_NAMES)
+    level = models.IntegerField()
+    strength = models.IntegerField()
+    dexterity = models.IntegerField()
+    intelligence = models.IntegerField()
+    hit_points = models.PositiveIntegerField()
+    inventory = models.TextField()
