@@ -187,26 +187,78 @@ def encode_and_replace(text: str, task_title: str):
     Task.objects.bulk_update(tasks, "description")
 
 
-# Hotel Room
+# Hotel
+rooms_data = [
+    {
+        "room_number": 401,
+        "room_type": "Standard",
+        "capacity": 2,
+        "amenities": "Tv",
+        "price_per_night": 100.00,
+    },
+    {
+        "room_number": 501,
+        "room_type": "Deluxe",
+        "capacity": 3,
+        "amenities": "Wi-Fi",
+        "price_per_night": 200.00,
+    },
+    {
+        "room_number": 601,
+        "room_type": "Deluxe",
+        "capacity": 6,
+        "amenities": "Jacuzzi",
+        "price_per_night": 400.00,
+    },
+]
+
+
+def add_rooms():
+    for room in rooms_data:
+        HotelRoom.objects.create(**room)
+
+    print("Hotel rooms added successfully!")
+
+
 def get_deluxe_rooms():
-    pass
+    deluxe_rooms = HotelRoom.objects.filter(room_type="Deluxe")
+
+    results = []
+
+    for deluxe_room in deluxe_rooms:
+        results.append(
+            f"Deluxe room with number {deluxe_room.room_number} costs {deluxe_room.price_per_night}$ per night!")
+
+    return "\n".join(results)
 
 
 def increase_room_capacity():
-    pass
+    ordered_rooms = HotelRoom.objects.all().order_by("id")
 
+    for room in ordered_rooms:
+        if room.id == 1:
+            room.capacity += 1
+            continue
 
-def increase_room_capacity():
-    pass
+        capacity_of_previous_room = ordered_rooms[room.id - 1].capacity
+
+        room.capacity += capacity_of_previous_room
+
+    HotelRoom.objects.bulk_update(ordered_rooms, "capacity")
 
 
 def reserve_first_room():
-    pass
+    first_room = HotelRoom.objects.first()
+
+    first_room.is_reserved = True
+    first_room.save()
 
 
 def delete_last_room():
-    pass
+    HotelRoom.objects.last().delete()
 
 
 if __name__ == "__main__":
-    pass
+    print(get_deluxe_rooms())
+    reserve_first_room()
+    print(HotelRoom.objects.get(room_number=401).is_reserved)
