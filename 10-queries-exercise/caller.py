@@ -61,5 +61,3 @@ def update_operation_systems():
 
 def delete_inexpensive_laptops():
     Laptop.objects.filter(price__lt=1200).delete()
-
-#

@@ -14,6 +14,7 @@ class ChessPlayer(models.Model):
 
 
 class Meal(models.Model):
+    objects = models.Manager()
     MEAL_TYPE_CHOICES = (
         ('Breakfast', 'Breakfast'),
         ('Lunch', 'Lunch'),
